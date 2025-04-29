@@ -1,0 +1,43 @@
+teleop_twist_joy_node:
+  ros__parameters:
+    # Mapping joystick axes to robot movement
+    axis_linear:
+      x: 1  # Left stick vertical axis (for forward/backward movement)
+      y: 0  # Left stick horizontal axis (for strafing left/right)
+      z: -1  # Right stick vertical axis (for lifting or other mechanisms, if needed)
+    axis_angular:
+      yaw: 3  # Right stick horizontal axis (for rotation)
+      pitch: -1  # Not used, disable
+      roll: -1  # Not used, disable
+
+    # Scaling values for linear movement
+    scale_linear:
+      x: 0.5  # Scale for forward/backward movement
+      y: 0.5  # Scale for strafing
+      z: 0.0  # Disabled by default
+
+    scale_linear_turbo:
+      x: 1.0  # Turbo mode for forward/backward
+      y: 1.0  # Turbo mode for strafing
+      z: 0.0  # Disabled in turbo mode
+
+    # Scaling values for angular movement
+    scale_angular:
+      yaw: 1.0  # Scale for rotation
+      pitch: 0.0  # Disabled
+      roll: 0.0  # Disabled
+
+    scale_angular_turbo:
+      yaw: 2.0  # Turbo mode for rotation
+      pitch: 0.0  # Disabled
+      roll: 0.0  # Disabled
+
+    # Button mappings for enable and turbo
+    enable_button: 4  # L1 button to enable movement
+    enable_turbo_button: 5  # R1 button for turbo mode
+
+    # Other settings
+    require_enable_button: true  # Robot requires enable button to be pressed
+    inverted_reverse: false  # Normal joystick behavior
+    publish_stamped_twist: false  # Do not publish stamped twist
+    use_sim_time: false  # Change to true if running in simulation

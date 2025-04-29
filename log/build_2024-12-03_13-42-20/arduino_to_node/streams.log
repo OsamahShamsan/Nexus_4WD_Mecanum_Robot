@@ -1,0 +1,24 @@
+[1.704s] Invoking command in '/home/mecroka/bumperbot_ws/src/arduino_to_node': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/mecroka/bumperbot_ws/build/arduino_to_node/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mecroka/bumperbot_ws/install/arduino_to_node/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/arduino_to_node build --build-base /home/mecroka/bumperbot_ws/build/arduino_to_node/build install --record /home/mecroka/bumperbot_ws/build/arduino_to_node/install.log --single-version-externally-managed install_data
+[2.111s] running egg_info
+[2.140s] writing ../../build/arduino_to_node/arduino_to_node.egg-info/PKG-INFO
+[2.140s] writing dependency_links to ../../build/arduino_to_node/arduino_to_node.egg-info/dependency_links.txt
+[2.141s] writing entry points to ../../build/arduino_to_node/arduino_to_node.egg-info/entry_points.txt
+[2.142s] writing requirements to ../../build/arduino_to_node/arduino_to_node.egg-info/requires.txt
+[2.142s] writing top-level names to ../../build/arduino_to_node/arduino_to_node.egg-info/top_level.txt
+[2.201s] reading manifest file '../../build/arduino_to_node/arduino_to_node.egg-info/SOURCES.txt'
+[2.202s] writing manifest file '../../build/arduino_to_node/arduino_to_node.egg-info/SOURCES.txt'
+[2.203s] running build
+[2.203s] running build_py
+[2.203s] copying arduino_to_node/serial_reader_node.py -> /home/mecroka/bumperbot_ws/build/arduino_to_node/build/lib/arduino_to_node
+[2.204s] running install
+[2.213s] running install_lib
+[2.243s] copying /home/mecroka/bumperbot_ws/build/arduino_to_node/build/lib/arduino_to_node/serial_reader_node.py -> /home/mecroka/bumperbot_ws/install/arduino_to_node/lib/python3.12/site-packages/arduino_to_node
+[2.244s] byte-compiling /home/mecroka/bumperbot_ws/install/arduino_to_node/lib/python3.12/site-packages/arduino_to_node/serial_reader_node.py to serial_reader_node.cpython-312.pyc
+[2.245s] running install_data
+[2.245s] running install_egg_info
+[2.276s] removing '/home/mecroka/bumperbot_ws/install/arduino_to_node/lib/python3.12/site-packages/arduino_to_node-0.0.0-py3.12.egg-info' (and everything under it)
+[2.277s] Copying ../../build/arduino_to_node/arduino_to_node.egg-info to /home/mecroka/bumperbot_ws/install/arduino_to_node/lib/python3.12/site-packages/arduino_to_node-0.0.0-py3.12.egg-info
+[2.278s] running install_scripts
+[2.496s] Installing serial_reader_node script to /home/mecroka/bumperbot_ws/install/arduino_to_node/lib/arduino_to_node
+[2.496s] writing list of installed files to '/home/mecroka/bumperbot_ws/build/arduino_to_node/install.log'
+[2.602s] Invoked command in '/home/mecroka/bumperbot_ws/src/arduino_to_node' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/mecroka/bumperbot_ws/build/arduino_to_node/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mecroka/bumperbot_ws/install/arduino_to_node/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/arduino_to_node build --build-base /home/mecroka/bumperbot_ws/build/arduino_to_node/build install --record /home/mecroka/bumperbot_ws/build/arduino_to_node/install.log --single-version-externally-managed install_data

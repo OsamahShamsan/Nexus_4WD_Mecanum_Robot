@@ -1,0 +1,21 @@
+[1.989s] Invoking command in '/home/mecroka/bumperbot_ws/src/ros_arduino_conn': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/mecroka/bumperbot_ws/build/ros_arduino_conn/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mecroka/bumperbot_ws/install/ros_arduino_conn/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/ros_arduino_conn build --build-base /home/mecroka/bumperbot_ws/build/ros_arduino_conn/build install --record /home/mecroka/bumperbot_ws/build/ros_arduino_conn/install.log --single-version-externally-managed install_data
+[2.521s] running egg_info
+[2.564s] writing ../../build/ros_arduino_conn/ros_arduino_conn.egg-info/PKG-INFO
+[2.565s] writing dependency_links to ../../build/ros_arduino_conn/ros_arduino_conn.egg-info/dependency_links.txt
+[2.566s] writing entry points to ../../build/ros_arduino_conn/ros_arduino_conn.egg-info/entry_points.txt
+[2.567s] writing requirements to ../../build/ros_arduino_conn/ros_arduino_conn.egg-info/requires.txt
+[2.568s] writing top-level names to ../../build/ros_arduino_conn/ros_arduino_conn.egg-info/top_level.txt
+[2.665s] reading manifest file '../../build/ros_arduino_conn/ros_arduino_conn.egg-info/SOURCES.txt'
+[2.668s] writing manifest file '../../build/ros_arduino_conn/ros_arduino_conn.egg-info/SOURCES.txt'
+[2.668s] running build
+[2.671s] running build_py
+[2.672s] running install
+[2.681s] running install_lib
+[2.711s] running install_data
+[2.712s] running install_egg_info
+[2.764s] removing '/home/mecroka/bumperbot_ws/install/ros_arduino_conn/lib/python3.12/site-packages/ros_arduino_conn-0.0.0-py3.12.egg-info' (and everything under it)
+[2.775s] Copying ../../build/ros_arduino_conn/ros_arduino_conn.egg-info to /home/mecroka/bumperbot_ws/install/ros_arduino_conn/lib/python3.12/site-packages/ros_arduino_conn-0.0.0-py3.12.egg-info
+[2.775s] running install_scripts
+[3.022s] Installing cmd_vel_to_serial script to /home/mecroka/bumperbot_ws/install/ros_arduino_conn/lib/ros_arduino_conn
+[3.022s] writing list of installed files to '/home/mecroka/bumperbot_ws/build/ros_arduino_conn/install.log'
+[3.143s] Invoked command in '/home/mecroka/bumperbot_ws/src/ros_arduino_conn' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/mecroka/bumperbot_ws/build/ros_arduino_conn/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mecroka/bumperbot_ws/install/ros_arduino_conn/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/ros_arduino_conn build --build-base /home/mecroka/bumperbot_ws/build/ros_arduino_conn/build install --record /home/mecroka/bumperbot_ws/build/ros_arduino_conn/install.log --single-version-externally-managed install_data

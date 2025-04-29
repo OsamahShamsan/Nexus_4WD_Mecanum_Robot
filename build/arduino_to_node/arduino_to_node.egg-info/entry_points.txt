@@ -1,0 +1,2 @@
+[console_scripts]
+serial_reader_node = arduino_to_node.serial_reader_node:main

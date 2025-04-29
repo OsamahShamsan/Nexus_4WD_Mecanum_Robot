@@ -1,0 +1,19 @@
+[11.274s] Invoking command in '/home/mecroka/bumperbot_ws/build/arduino_to_node': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/mecroka/bumperbot_ws/build/arduino_to_node/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mecroka/bumperbot_ws/install/arduino_to_node/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/mecroka/bumperbot_ws/build/arduino_to_node/build --no-deps symlink_data --force
+[11.802s] running develop
+[12.114s] running egg_info
+[12.145s] writing arduino_to_node.egg-info/PKG-INFO
+[12.151s] writing dependency_links to arduino_to_node.egg-info/dependency_links.txt
+[12.151s] writing entry points to arduino_to_node.egg-info/entry_points.txt
+[12.151s] writing requirements to arduino_to_node.egg-info/requires.txt
+[12.152s] writing top-level names to arduino_to_node.egg-info/top_level.txt
+[12.215s] reading manifest file 'arduino_to_node.egg-info/SOURCES.txt'
+[12.223s] writing manifest file 'arduino_to_node.egg-info/SOURCES.txt'
+[12.256s] running build_ext
+[12.258s] Creating /home/mecroka/bumperbot_ws/install/arduino_to_node/lib/python3.12/site-packages/arduino-to-node.egg-link (link to .)
+[12.258s] Installing serial_reader_node script to /home/mecroka/bumperbot_ws/install/arduino_to_node/lib/arduino_to_node
+[12.258s] 
+[12.258s] Installed /home/mecroka/bumperbot_ws/build/arduino_to_node
+[12.258s] running symlink_data
+[12.258s] symbolically linking /home/mecroka/bumperbot_ws/build/arduino_to_node/resource/arduino_to_node -> /home/mecroka/bumperbot_ws/install/arduino_to_node/share/ament_index/resource_index/packages
+[12.259s] symbolically linking /home/mecroka/bumperbot_ws/build/arduino_to_node/package.xml -> /home/mecroka/bumperbot_ws/install/arduino_to_node/share/arduino_to_node
+[12.389s] Invoked command in '/home/mecroka/bumperbot_ws/build/arduino_to_node' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/mecroka/bumperbot_ws/build/arduino_to_node/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mecroka/bumperbot_ws/install/arduino_to_node/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/mecroka/bumperbot_ws/build/arduino_to_node/build --no-deps symlink_data --force

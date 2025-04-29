@@ -1,0 +1,6 @@
+[console_scripts]
+cmd_vel_to_serial = ros_arduino_conn.cmd_vel_to_serial:main
+move_robot_node = ros_arduino_conn.move_robot_node:main
+odom_nexus_node = ros_arduino_conn.odom_nexus_node:main
+serial_conn_node = ros_arduino_conn.serial_conn_node:main
+twist_nexus_node = ros_arduino_conn.twist_nexus_node:main
