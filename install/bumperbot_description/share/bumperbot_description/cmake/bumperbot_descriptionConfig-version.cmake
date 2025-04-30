@@ -1,1 +1,0 @@
-/home/mecroka/bumperbot_ws/build/bumperbot_description/ament_cmake_core/bumperbot_descriptionConfig-version.cmake

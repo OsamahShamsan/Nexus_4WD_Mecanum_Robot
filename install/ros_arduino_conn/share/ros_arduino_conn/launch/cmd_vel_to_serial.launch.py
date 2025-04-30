@@ -1,1 +1,0 @@
-/home/mecroka/bumperbot_ws/build/ros_arduino_conn/launch/cmd_vel_to_serial.launch.py
