@@ -2,7 +2,7 @@
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
-from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import Int32MultiArray
 
 WHEELSPAN = 300  # mm
 
@@ -11,7 +11,9 @@ class TwistNexusNode(Node):
         super().__init__('twist_nexus_node')
 
         self.declare_parameter('input_topic', '/cmd_vel')
-        self.declare_parameter('output_topic', '/twist_nexus')
+        #self.declare_parameter('output_topic', '/twist_nexus')
+        self.declare_parameter('output_topic', '/encoder_wheels')
+
         self.declare_parameter('linear_scale', 500.0)
         self.declare_parameter('angular_scale', 1.0)
         self.declare_parameter('linear_ramp_step', 20.0)
@@ -24,10 +26,10 @@ class TwistNexusNode(Node):
         self.linear_ramp_step = self.get_parameter('linear_ramp_step').value
         self.angular_ramp_step = self.get_parameter('angular_ramp_step').value
 
-        self.publisher = self.create_publisher(Float32MultiArray, self.output_topic, 10)
+        self.publisher = self.create_publisher(Int32MultiArray, self.output_topic, 10)
         self.subscription = self.create_subscription(Twist, self.input_topic, self.cmd_vel_callback, 10)
 
-        self.timer = self.create_timer(0.02, self.loop)  # Main loop 50 Hz
+        self.timer = self.create_timer(0.01, self.loop)  # Main loop 50 Hz
 
         self.target_vx = 0.0
         self.target_vy = 0.0
@@ -50,7 +52,8 @@ class TwistNexusNode(Node):
 
     def loop(self):
         publishers = self.subscription.get_publisher_count()
-        msg = Float32MultiArray()
+        msg = Int32MultiArray()
+        
         if publishers == 0:
             #self.get_logger().info(f"1 Number of publishers on {self.input_topic}: {publishers}")
             self.current_vx = self.ramp(self.current_vx, 0, self.linear_ramp_step)
@@ -62,10 +65,10 @@ class TwistNexusNode(Node):
             self.current_omega = self.ramp(self.current_omega, self.target_omega, self.angular_ramp_step)
 
         r = WHEELSPAN
-        v1 =  (self.current_vx - self.current_vy - (r * self.current_omega))
-        v2 = -(self.current_vx + self.current_vy + (r * self.current_omega))
-        v3 =  (self.current_vx + self.current_vy - (r * self.current_omega))
-        v4 = -(self.current_vx - self.current_vy + (r * self.current_omega))
+        v1 = int( (self.current_vx - self.current_vy - (r * self.current_omega)))
+        v2 = int(-(self.current_vx + self.current_vy + (r * self.current_omega)))
+        v3 = int( (self.current_vx + self.current_vy - (r * self.current_omega)))
+        v4 = int(-(self.current_vx - self.current_vy + (r * self.current_omega)))
 
         msg.data = [v1, v2, v3, v4]
 

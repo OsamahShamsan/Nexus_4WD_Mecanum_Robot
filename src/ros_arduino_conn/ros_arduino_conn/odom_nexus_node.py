@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import Int32MultiArray, Float32MultiArray
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Quaternion, TransformStamped
 from tf_transformations import quaternion_from_euler, euler_from_quaternion
@@ -26,19 +26,15 @@ class OdomNexusNode(Node):
         self.last_time = self.get_clock().now().nanoseconds / 1e9
 
         # ROS interfaces
-        self.subscription = self.create_subscription(
-            Float32MultiArray, '/encoder_wheels', self.encoder_callback, 10
-        )
+        self.subscription = self.create_subscription( Int32MultiArray, '/encoder_wheels', self.encoder_callback, 10)
         self.odom_pub = self.create_publisher(Odometry, '/odom', 10)
-        self.odom_deg_pub = self.create_publisher(Float32MultiArray, '/odom_degree', 10)
+        self.odom_deg_pub = self.create_publisher( Float32MultiArray, '/odom_degree', 10)
 
         # TF broadcaster
         self.tf_broadcaster = TransformBroadcaster(self)
 
     def encoder_callback(self, msg):
-        now = self.get_clock().now().nanoseconds / 1e9
-        dt = now - self.last_time
-        self.last_time = now
+        
 
         if len(msg.data) != 4:
             self.get_logger().warn("Received malformed encoder data")
@@ -47,27 +43,37 @@ class OdomNexusNode(Node):
         v1, v2, v3, v4 = msg.data
 
         # Momentane Mecanum kinematics
-        vx = (v1 + v2 + v3 + v4) / 4.0
-        vy = (-v1 + v2 + v3 - v4) / 4.0
-        omega = (-v1 + v2 - v3 + v4) / (4.0 * self.wheelspan)
+        vx = (v1 + v3 - v3 - v4) / 4.0
+        vy = (-v1 + v3 + v4 - v2) / 4.0
+        omega = (-v1 - v2 - v3 - v4) / (4.0 * self.wheelspan)
 
-        vx /= 1000.0  # mm/s to m/s
-        vy /= 1000.0
+        
+
+        now = self.get_clock().now().nanoseconds / 1e9
+        dt = now - self.last_time
+        self.last_time = now
 
         # Integrate pose and Normalize angle to [-pi, pi].
+        self.theta += (omega * dt)
+        self.theta_normalized= (self.theta + math.pi) % (2 * math.pi) - math.pi
 
-        self.theta += omega * dt
-
-        self.theta_normalized = (self.theta + math.pi) % (2 * math.pi) - math.pi
-        self.x += (vx * math.cos(self.theta_normalized) - vy * math.sin(self.theta_normalized)) * dt
-        self.y += (vx * math.sin(self.theta_normalized) + vy * math.cos(self.theta_normalized)) * dt
-        
         # Compute degrees version and Make sure it's [0, 360[
-        theta_deg = math.degrees(self.theta_normalized) % 360.0
+        theta_degree = math.degrees(self.theta_normalized) % 360.0
+
+        #theta_degree = math.fmod(theta_degree, 360.0)  # Normalize to [-360, 360)
+        #if theta_degree < 0.0:
+        #    theta_degree += 360.0  # Shift to [0, 360)
+
+
+        #self.theta_normalized = (self.theta + math.pi) % (2 * math.pi) - math.pi
+        self.x += ((vx * math.cos(self.theta_normalized) - vy * math.sin(self.theta_normalized)) * dt) / 1000.0   # in meters
+        self.y += ((vx * math.sin(self.theta_normalized) + vy * math.cos(self.theta_normalized)) * dt) / 1000.0   # in meters
+        
+        
 
         # Create the message
-        odom_deg_msg = Float32MultiArray()
-        odom_deg_msg.data = [self.x, self.y, theta_deg]
+        odom_deg_msg =  Float32MultiArray()
+        odom_deg_msg.data = [self.x, self.y, theta_degree]
 
         # Publish it for debugging
         self.odom_deg_pub.publish(odom_deg_msg)

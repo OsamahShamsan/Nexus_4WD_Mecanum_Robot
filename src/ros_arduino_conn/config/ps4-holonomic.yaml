@@ -23,12 +23,12 @@ teleop_twist_joy_node:
 
     # Scaling values for angular movement
     scale_angular:
-      yaw: 1.0  # Scale for rotation
+      yaw: 0.5  # Scale for rotation
       pitch: 0.0  # Disabled
       roll: 0.0  # Disabled
 
     scale_angular_turbo:
-      yaw: 2.0  # Turbo mode for rotation
+      yaw: 1.0  # Turbo mode for rotation
       pitch: 0.0  # Disabled
       roll: 0.0  # Disabled
 

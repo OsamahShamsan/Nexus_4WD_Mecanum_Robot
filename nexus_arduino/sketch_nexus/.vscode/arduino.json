@@ -1,0 +1,6 @@
+{
+  "sketch": "sketch_nexus.ino",
+  "board": "arduino:avr:diecimila",
+  "port": "/dev/ttyUSB0",
+  "output": "../build"
+}
