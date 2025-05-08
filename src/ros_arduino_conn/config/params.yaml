@@ -1,7 +1,5 @@
 twist_nexus_node:
   ros__parameters:
-    cmd_topic: "/cmd_vel"
-    output_topic: "/twist_nexus"
     linear_scale: 500.0
     angular_scale: 1.0
     linear_ramp_step: 4.0
