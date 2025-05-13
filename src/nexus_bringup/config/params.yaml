@@ -1,0 +1,15 @@
+nexus_twist_node:
+  ros__parameters:
+    linear_scale: 500.0
+    angular_scale: 1.0
+    linear_ramp_step: 4.0
+    angular_ramp_step: 0.08
+
+nexus_serial_conn_node:
+  ros__parameters:
+    serial_port: "/dev/ttyUSB0"
+    baud_rate: 115200
+
+nexus_odom_node:
+  ros__parameters:
+    wheelspan: 300.0
