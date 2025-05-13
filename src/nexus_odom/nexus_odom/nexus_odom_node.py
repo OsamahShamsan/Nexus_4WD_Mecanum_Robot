@@ -7,7 +7,7 @@ from geometry_msgs.msg import Quaternion, TransformStamped
 from tf_transformations import quaternion_from_euler, euler_from_quaternion
 from tf2_ros import TransformBroadcaster
 import math
-
+from std_srvs.srv import Empty
 
 class NexusOdomNode(Node):
     def __init__(self):
@@ -126,7 +126,16 @@ class NexusOdomNode(Node):
 
         self.tf_broadcaster.sendTransform(tf_msg)
 
+        # Create reset service
+        self.reset_odom_srv = self.create_service(Empty, 'reset_odom', self.reset_odom_callback)
 
+    def reset_odom_callback(self, request, response):
+        self.x = 0.0
+        self.y = 0.0
+        self.theta = 0.0
+        self.get_logger().info("Odometry has been reset.")
+        return response
+    
 def main(args=None):
     rclpy.init(args=args)
     node = NexusOdomNode()

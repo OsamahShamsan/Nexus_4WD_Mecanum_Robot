@@ -17,6 +17,7 @@
   <depend>termios</depend>
   <depend>tty</depend>
   <depend>time</depend>
+  <depend>std_srvs</depend>
   
   
   <exec_depend>pyserial</exec_depend>
