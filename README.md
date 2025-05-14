@@ -20,11 +20,11 @@ The Nexus 4WD Mecanum robot is equipped with 4 mecanum wheels, enabling omnidire
 
 ## Package Structure
 src/  
-├── nexus_bringup       # Launch file and system bringup  
-├── nexus_control       # Teleoperation and control logic  
-├── nexus_description   # URDF and meshes for the robot  
-├── nexus_odom          # Odometry node  
-├── nexus_serial_conn   # Serial communication node  
+├── nexus_bringup           # Launch file and system bringup  
+├── nexus_control           # Teleoperation and control logic  
+├── nexus_description       # URDF and meshes for the robot  
+├── nexus_odom              # Odometry node  
+├── nexus_serial_conn       # Serial communication node  
 
 
 ---
@@ -42,33 +42,28 @@ The system consists of multiple ROS 2 nodes communicating via topics, as illustr
 | Node                  | Description                                                                                                    |
 |-----------------------|----------------------------------------------------------------------------------------------------------------|
 | `/joy_node`           | (External) Reads the inputs from PS4 Controller and map them                                                   |
-
 | `/teleop_node`        | (External) Sends command velocities from PS4 Controller      to nexus_twist_node                               |
 | `/nexus_move_node`    |            Sends command velocities from terminal (optional) to nexus_twist_node                               |
-
 | `/nexus_twist_node`   |            Converts `/cmd_vel` to scaled and ready to be sent `/twist_nexus` commands (No prioritizing yet)    |
-
 | `/nexus_serial_conn`  |            Handles serial data to and from Arduino (only recieve & publish data)                               |
-
 | `/nexus_odom`         |            Recieves wheel velocities (from 4 encoders ), computes and publish odom data                        |
-
 | `/nexus_bringup`      |            Launch file for starting the system                                                                 |
 
 ---
 
 ## Topics
 
-| Topic                  | Message Type                           | Description                                           |
-|------------------------|----------------------------------------|-------------------------------------------------------|
-| `/joy`                 | `sensor_msgs/Joy`                      | Joystick inputs                                       |
-| `/joy/set_feedback`    | `sensor_msgs/JoyFeedbackArray`         | Feedback to joystick                                  |
-| `/cmd_vel`             | `geometry_msgs/Twist`                  | Standard robot velocity commands                      |
-| `/twist_nexus`         | `std_msgs/Int32MultiArray`             | Nexus-specific velocity commands                      |
-| `/encoder_wheels`      | `std_msgs/Int32MultiArray`             | Wheels encoder raw data                               |
-| `/serial_debug`        | `std_msgs/String`                      | Debug messages from serial connection (internal use)  |
-| `/odom`                | `nav_msgs/Odometry`                    | Robot odometry                                        |
-| `/odom_degree`         | `std_msgs/Float32MultiArray`           | Robot only x, y and yaw/heading in degrees            |
-| `/tf`                  | `tf2_msgs/TFMessage`                   | TF transforms                                         |
+| Topic                         | Message Type                           | Description                                           |
+|-------------------------------|----------------------------------------|-------------------------------------------------------|
+| `/joy`                        | `sensor_msgs/Joy`                      | Joystick inputs                                       |
+| `/joy/set_feedback`           | `sensor_msgs/JoyFeedbackArray`         | Feedback to joystick                                  |
+| `/cmd_vel`                    | `geometry_msgs/Twist`                  | Standard robot velocity commands                      |
+| `/twist_nexus`                | `std_msgs/Int32MultiArray`             | Nexus-specific velocity commands                      |
+| `/encoder_wheels`             | `std_msgs/Int32MultiArray`             | Wheels encoder raw data                               |
+| `/serial_debug`               | `std_msgs/String`                      | Debug messages from serial connection (internal use)  |
+| `/odom`                       | `nav_msgs/Odometry`                    | Robot odometry                                        |
+| `/odom_degree`                | `std_msgs/Float32MultiArray`           | Robot only x, y and yaw/heading in degrees            |
+| `/tf`                         | `tf2_msgs/TFMessage`                   | TF transforms                                         |
 
 ---
 
@@ -111,7 +106,6 @@ The ROS2 workspace was tested on the following environment:
 - Raspberry PI 5 8GB RAM and 64GB SD-Card.
 - Ubuntu 24.04. 
 - ROS 2 Jazzy.
-- 
 
 ## Acknowledgments
 
@@ -123,8 +117,14 @@ This project makes use of the following open-source packages and resources:
 
 Special thanks to the ROS community and the contributors of these projects for their valuable work, which made this project possible.
 
-## License:
-This project is licensed under the MIT License.
+## License
+
+This project is distributed under the terms of the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html).
+
+### Notes on components:
+- Parts of this project (original code) are originally licensed under the MIT License.
+- Due to the inclusion of GPL v3 licensed components (such as `joy`, `teleop_twist_joy`, and `nexus_4wd_mecanum_simulator`), the entire project is distributed under the terms of GPL v3.
+
 
 ## Author:
 Osamah Shamsan
