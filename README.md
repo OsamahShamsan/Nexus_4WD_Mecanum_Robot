@@ -20,14 +20,58 @@ The Nexus 4WD Mecanum robot is equipped with 4 mecanum wheels, enabling omnidire
 
 ---
 
-## Package Structure
-src/  
-├── nexus_bringup           # Launch file and system bringup  
-├── nexus_control           # Teleoperation and control logic  
-├── nexus_description       # URDF and meshes for the robot  
-├── nexus_odom              # Odometry node  
-├── nexus_serial_conn       # Serial communication node  
-
+## Workspace Structure Tree
+```
+.  
+└── src/  
+    ├── nexus_bringup/  
+    │   ├── config/  
+    │   │   ├── params.yaml  
+    │   │   └── ps4-holonomic.yaml  
+    │   ├── launch/  
+    │   │   └── nexus_bringup.launch.py  
+    │   ├── package.xml  
+    │   └── setup.py  
+    │  
+    ├── nexus_control/  
+    │   ├── nexus_control/  
+    │   │   ├── nexus_move_node.py  
+    │   │   └── nexus_twist_node.py  
+    │   ├── package.xml  
+    │   └── setup.py  
+    │  
+    ├── nexus_description/  
+    │   ├── launch/  
+    │   │   ├── display.launch.py  
+    │   │   └── gazebo.launch.py  
+    │   ├── meshes/  
+    │   │   ├── mecanum_wheel_left.STL  
+    │   │   ├── mecanum_wheel_right.STL  
+    │   │   ├── nexus_base_link_collision.STL  
+    │   │   ├── nexus_base_link.STL  
+    │   │   ├── urm04.STL  
+    │   │   └── wheel_shaft.STL
+    │   ├── rviz/  
+    │   │   └── display.rviz  
+    │   ├── urdf/  
+    │   │   ├── nexus_4wd_mecanum_gazebo.xacro  
+    │   │   ├── nexus_4wd_mecanum_ros2_control.xacro  
+    │   │   └── nexus_4wd_mecanum.urdf.xacro  
+    │   ├── package.xml
+    │   └── setup.py
+    │  
+    ├── nexus_odom/  
+    │   ├── nexus_odom/  
+    │   │   └── nexus_odom_node  
+    │   ├── package.xml  
+    │   └── setup.py  
+    │  
+    └── nexus_serial_conn/  
+        ├── nexus_serial_conn/  
+        │   └── nexus_serial_conn_node  
+        ├── package.xml  
+        └── setup.py   
+```
 
 ---
 

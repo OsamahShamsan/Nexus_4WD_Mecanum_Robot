@@ -27,7 +27,7 @@ class NexusMoveNode(Node):
 
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)    # Publisher to publish the needed speed to cmd_vel
         self.start_time = time.time()                                    # 
-        self.timer_freq = 0.03                                           # The frequency in which the mode functions should send a new speed command to cmd_vel topic
+        self.timer_freq = 0.03                                           # The frequency in Hz in which the mode functions should send a new speed command to cmd_vel topic
         self.ramp_steps = 0.1                                            # The steps in which each cmd_vel command should increment => to not cause a rapid change in speed e.g. from -1 directly to 1 (safety for motors)
         self.current_vx = self.current_vy = self.current_w = 0.0         # The speeds that will be sent to the cmd_vel
 
