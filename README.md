@@ -3,7 +3,7 @@
 This is a ROS 2 Jazzy workspace developed to control and simulate the Nexus 4WD Mecanum robot platform.
  The project includes arduino program and packages for teleoperation (through Terminal or PS4 Controller), odometry, serial communication with an Arduino 328 controller and robot description for visualization and simulation.
 
-<img src="Nexus_4WD_mecanum_wheels.jpg" alt="Nexus 4WD Mecanum Wheels" width="20%">
+<img src="Nexus_4WD_mecanum_wheels.jpg" alt="Nexus 4WD Mecanum Wheels" width="40%">
 
 #### Disclaimer: 
 I am only a user of the Nexus 4WD mecanum wheels robot and develop some packages for study purposes. The owners of the external packages joy, teleop_twist_joy, nexus_4wd_mecanum meshes and URDF are listed in the Acknowledgments section below. 
