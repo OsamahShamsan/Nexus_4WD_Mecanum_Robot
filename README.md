@@ -1,7 +1,10 @@
 # NEXUS 4WD Mecanum Robot - ROS 2 Package
 
-This is a ROS 2 Jazzy package developed to control and simulate the Nexus 4WD Mecanum robot platform.
- The project includes arduino program and nodes for teleoperation (manually or PS4 Controller), odometry, serial communication with an Arduino 328 controller and robot description for visualization and simulation.
+This is a ROS 2 Jazzy workspace developed to control and simulate the Nexus 4WD Mecanum robot platform.
+ The project includes arduino program and packages for teleoperation (through Terminal or PS4 Controller), odometry, serial communication with an Arduino 328 controller and robot description for visualization and simulation.
+
+#### Disclaimer: 
+I am only a user of the Nexus 4WD mecanum wheels robot and develop some packages for study purposes. The owners of the external packages joy, teleop_twist_joy, nexus_4wd_mecanum meshes and URDF are listed in the Acknowledgments section below. 
 
 ## Project Overview
 
@@ -10,18 +13,18 @@ The Nexus 4WD Mecanum robot is equipped with 4 mecanum wheels, enabling omnidire
 - **Serial communication** with the onboard Arduino 328 controller.
 - **Teleoperation nodes** for remote and manual control.
 - **Odometry node** to estimate the robot's position.
-- **Robot description** for visualization in RViz and simulation.
+- **Robot description** for visualization in RViz and simulation ().
 - **Bringup launch file** to start the system.
 
 ---
 
 ## Package Structure
-src/
-├── nexus_bringup       # Launch file and system bringup
-├── nexus_control       # Teleoperation and control logic
-├── nexus_description   # URDF and meshes for the robot
-├── nexus_odom          # Odometry node
-├── nexus_serial_conn   # Serial communication node
+src/  
+├── nexus_bringup       # Launch file and system bringup  
+├── nexus_control       # Teleoperation and control logic  
+├── nexus_description   # URDF and meshes for the robot  
+├── nexus_odom          # Odometry node  
+├── nexus_serial_conn   # Serial communication node  
 
 
 ---
@@ -40,8 +43,8 @@ The system consists of multiple ROS 2 nodes communicating via topics, as illustr
 |-----------------------|----------------------------------------------------------------------------------------------------------------|
 | `/joy_node`           | (External) Reads the inputs from PS4 Controller and map them                                                   |
 
-| `/teleop_node`        | (External) Sends command velocities from PS4 Controller to nexus_twist_node                                    |
-| `/nexus_move_node`    |            Sends command velocities manually (optional) to nexus_twist_node                                    |
+| `/teleop_node`        | (External) Sends command velocities from PS4 Controller      to nexus_twist_node                               |
+| `/nexus_move_node`    |            Sends command velocities from terminal (optional) to nexus_twist_node                               |
 
 | `/nexus_twist_node`   |            Converts `/cmd_vel` to scaled and ready to be sent `/twist_nexus` commands (No prioritizing yet)    |
 
@@ -78,27 +81,52 @@ The system consists of multiple ROS 2 nodes communicating via topics, as illustr
    mkdir Nexus_4WD_Mecanum_Robot
    cd Nexus_4WD_Mecanum_Robot
    git clone https://github.com/OsamahShamsan/Nexus_4WD_Mecanum_Robot.git
-
-
 2. **Build the workspace:**
    ```bash
    colcon build
-
 3. **Source the workspace:**
     ```bash
     source /opt/ros/jazzy/setup.bash
     source ~/nexus_4wd_mecanum_ws/install/setup.bash
+4. **Establish the PI <=> arduino USB connection:**
+    - Connect the Raspberry PI to the arduino through USB.
+    - Make sure they are both connected in '/dev/ttyUSB0', otherwise change in the [nexus_serial_conn_node.py](src/nexus_serial_conn/nexus_serial_conn/nexus_serial_conn_node.py) and [params.yaml.](src/nexus_bringup/config/params.yaml).
+5. **Uplaod the arduino sketch to the Arduino board:**
+    - Open the arduino code in [sketch_nexus.ino](nexus_arduino/sketch_nexus/sketch_nexus.ino) and upload the code. (You have many options to do this: Arduino-cli, Arduino IDE, Visual Studio Code with the arduino extension, ..etc.).
 
-4. **To move robot through PS4 Controller:**
-    Turn on the ps4 controller (if another Joystick e.g. ps3 or xbox => see github-ros2-teleop_twist_joy)
+6. **To move the robot:**
+    - **Through PS4 Controller:**  
+        Turn on the ps4 controller (if another Joystick e.g. ps3 or xbox => see github-ros2-teleop_twist_joy)
 
-   **To move robot manually:**
-    ```bash
-    ros2 run nexus_control nexus_move_node --ros-args   -p vx:=1.0 -p vy:=0.0 -p w:=0.0 -p t:=2.0 -p M:=l
-
-5. **Launch the robot system:**
+   - **Through Terminal:**
+        ```bash
+        ros2 run nexus_control nexus_move_node --ros-args   -p vx:=1.0 -p vy:=0.0 -p w:=0.0 -p t:=2.0 -p M:=l
+7. **Launch the robot system:**
     ```bash
     ros2 launch nexus_bringup bringup.launch.py
+## Requirements:
+The ROS2 workspace was tested on the following environment:
+- Nexus 4WD mecanum wheel robot including built-in 4 Encoders.
+- Arduino 328 & IO Expansion Board.
+- Raspberry PI 5 8GB RAM and 64GB SD-Card.
+- Ubuntu 24.04. 
+- ROS 2 Jazzy.
+- 
 
+## Acknowledgments
+
+This project makes use of the following open-source packages and resources:
+
+- [joy](https://index.ros.org/p/joy/) - ROS package for joystick drivers and input handling.
+- [teleop_twist_joy](https://index.ros.org/r/teleop_twist_joy/) - ROS package to convert joystick inputs to velocity commands.
+- [nexus_4wd_mecanum_simulator by RBinsonB](https://github.com/RBinsonB/nexus_4wd_mecanum_simulator/tree/master) - Reference for Nexus 4WD Mecanum simulation setup and configurations.
+
+Special thanks to the ROS community and the contributors of these projects for their valuable work, which made this project possible.
+
+## License:
+This project is licensed under the MIT License.
+
+## Author:
+Osamah Shamsan
 
 
