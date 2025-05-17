@@ -1,18 +1,18 @@
 {
   "configurations": [
     {
-      "browse": {
-        "databaseFilename": "${default}",
-        "limitSymbolsToIncludedHeaders": false
-      },
+      "name": "ROS",
       "includePath": [
         "/opt/ros/jazzy/include/**",
-        "/home/mecroka/bumperbot_ws/src/bumperbot_cpp_examples/include/**",
+        "/home/mecroka/nexus_4wd_mecanum_ws/src/**",
         "/usr/include/**"
       ],
-      "name": "ROS",
-      "intelliSenseMode": "gcc-arm64",
+      "browse": {
+        "limitSymbolsToIncludedHeaders": false,
+        "databaseFilename": "${default}"
+      },
       "compilerPath": "/usr/bin/gcc",
+      "intelliSenseMode": "gcc-arm64",
       "cStandard": "gnu11",
       "cppStandard": "c++14"
     }

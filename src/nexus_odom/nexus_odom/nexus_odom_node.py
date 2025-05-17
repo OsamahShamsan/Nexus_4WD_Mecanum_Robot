@@ -52,7 +52,7 @@ class NexusOdomNode(Node):
         v3_mmps = self.apply_deadzone(v3_mmps, threshold)
         v4_mmps = self.apply_deadzone(v4_mmps, threshold)
 
-        self.get_logger().info(f"v1_mmps: {v1_mmps:.3f} m/s, v2_mmps: {v2_mmps:.3f} m/s, v3_mmps: {v3_mmps:.3f} m/s, v4_mmps: {v4_mmps:.3f} m/s,")
+        #self.get_logger().info(f"v1_mmps: {v1_mmps:.3f} m/s, v2_mmps: {v2_mmps:.3f} m/s, v3_mmps: {v3_mmps:.3f} m/s, v4_mmps: {v4_mmps:.3f} m/s,")
 
         v1 = v1_mmps / 1000.0
         v2 = v2_mmps / 1000.0

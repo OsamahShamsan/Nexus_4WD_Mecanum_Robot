@@ -1,14 +1,12 @@
 {
     "python.autoComplete.extraPaths": [
-        "/home/mecroka/bumperbot_ws/install/bumperbot_py_examples/lib/python3.12/site-packages",
-        "/home/mecroka/nexus_ws/build/nexus_serial_comm",
-        "/home/mecroka/nexus_ws/install/nexus_serial_comm/lib/python3.12/site-packages",
-        "/opt/ros/jazzy/lib/python3.12/site-packages"
+      "/home/mecroka/nexus_ws/build",
+      "/home/mecroka/nexus_ws/install",
+      "/opt/ros/jazzy/lib/python3.12/site-packages"
     ],
     "python.analysis.extraPaths": [
-        "/home/mecroka/bumperbot_ws/install/bumperbot_py_examples/lib/python3.12/site-packages",
-        "/home/mecroka/nexus_ws/build/nexus_serial_comm",
-        "/home/mecroka/nexus_ws/install/nexus_serial_comm/lib/python3.12/site-packages",
-        "/opt/ros/jazzy/lib/python3.12/site-packages"
+      "/home/mecroka/nexus_ws/build",
+      "/home/mecroka/nexus_ws/install",
+      "/opt/ros/jazzy/lib/python3.12/site-packages"
     ]
-}
+  }

@@ -1,0 +1,7 @@
+{
+    "configuration": "cpu=atmega328",
+    "board": "arduino:avr:diecimila",
+    "port": "/dev/ttyUSB0",
+    "programmer": "arduino:arduinoasisp",
+    "sketch": "sketch_nexus/sketch_nexus.ino"
+}

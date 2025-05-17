@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Arduino",
-            "compilerPath": "/home/mecroka/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+            "compilerPath": "/home/mecroka/Downloads/arduino-1.8.19/hardware/tools/avr/bin/avr-g++",
             "compilerArgs": [
                 "-w",
                 "-std=gnu++11",
@@ -16,25 +16,22 @@
             ],
             "intelliSenseMode": "gcc-x64",
             "includePath": [
-                "/home/mecroka/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
-                "/home/mecroka/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
-                "/home/mecroka/Downloads/arduino-1.8.19/libraries/**",
+                "/home/mecroka/.arduino15/packages/arduino/hardware/avr/1.8.5/cores/arduino",
+                "/home/mecroka/.arduino15/packages/arduino/hardware/avr/1.8.5/variants/standard",
                 "/home/mecroka/Downloads/arduino-1.8.19/libraries/MotorWheel",
                 "/home/mecroka/Downloads/arduino-1.8.19/libraries/PID_Beta6",
                 "/home/mecroka/Downloads/arduino-1.8.19/libraries/PinChangeInt",
-                "/home/mecroka/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include",
-                "/home/mecroka/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include-fixed",
-                "/home/mecroka/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include",
-                "/home/mecroka/Downloads/arduino-1.8.19/libraries/Omni4WD"
+                "/home/mecroka/Downloads/arduino-1.8.19/hardware/tools/avr/lib/gcc/avr/7.3.0/include",
+                "/home/mecroka/Downloads/arduino-1.8.19/hardware/tools/avr/lib/gcc/avr/7.3.0/include-fixed",
+                "/home/mecroka/Downloads/arduino-1.8.19/hardware/tools/avr/avr/include"
             ],
             "forcedInclude": [
-                "/home/mecroka/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino/Arduino.h"
+                "/home/mecroka/.arduino15/packages/arduino/hardware/avr/1.8.5/cores/arduino/Arduino.h"
             ],
             "cStandard": "c11",
             "cppStandard": "c++11",
             "defines": [
                 "F_CPU=16000000L",
-                "__AVR_ATmega328P__",
                 "ARDUINO=10819",
                 "ARDUINO_AVR_DUEMILANOVE",
                 "ARDUINO_ARCH_AVR",

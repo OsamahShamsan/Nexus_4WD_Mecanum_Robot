@@ -1,6 +1,8 @@
 {
-  "sketch": "sketch_nexus.ino",
-  "board": "arduino:avr:diecimila",
   "port": "/dev/ttyUSB0",
-  "output": "../build"
+  "configuration": "cpu=atmega328",
+  "board": "arduino:avr:diecimila",
+  "programmer": "arduino:arduinoisp",
+  "sketch": "nexus_arduino/sketch_nexus/sketch_nexus.ino",
+  "output": "build"
 }
