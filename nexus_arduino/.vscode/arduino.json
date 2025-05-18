@@ -3,5 +3,5 @@
     "board": "arduino:avr:diecimila",
     "port": "/dev/ttyUSB0",
     "programmer": "arduino:arduinoasisp",
-    "sketch": "sketch_nexus/sketch_nexus.ino"
+    "sketch": "build/sketch/sketch_nexus.ino.cpp"
 }

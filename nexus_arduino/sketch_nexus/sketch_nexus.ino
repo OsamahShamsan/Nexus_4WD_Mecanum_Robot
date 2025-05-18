@@ -89,8 +89,10 @@ v_UR=Vty-Vtx+w(a+b);
 
 #include <Arduino.h>
 #include <Omni4WD.h>
+
 #define minValue (int)-500
 #define maxValue (int) 500
+
 irqISR(irq1, isr1);
 MotorWheel wheel1(3, 2, 4, 5, &irq1);
 irqISR(irq2, isr2);
@@ -99,7 +101,9 @@ irqISR(irq3, isr3);
 MotorWheel wheel3(9, 8, 16, 17, &irq3);
 irqISR(irq4, isr4);
 MotorWheel wheel4(10, 7, 18, 19, &irq4);
+
 Omni4WD Omni(&wheel1, &wheel2, &wheel3, &wheel4);
+
 int twist_v1 = 0, twist_v2 = 0, twist_v3 = 0, twist_v4 = 0;
 int encoder_v1 = 0, encoder_v2 = 0, encoder_v3 = 0, encoder_v4 = 0;
 int t1 = 0, t2 = 0, t3 = 0, t4 = 0;
@@ -113,7 +117,6 @@ void stopMotors() {
   Omni.wheelLLSetSpeedMMPS(0);
   Omni.wheelLRSetSpeedMMPS(0);
   Omni.PIDRegulate();
-
 }
 
 int clamp(int value, int minVal, int maxVal) {
