@@ -18,8 +18,13 @@ def generate_launch_description():
             name='teleop_twist_joy_node',
             output='screen',
             parameters=[
-                '/home/mecroka/nexus_4wd_mecanum_ws/src/nexus_bringup/config/ps4-holonomic.yaml'
+                '/home/mecroka/nexus_4wd_mecanum_ws/src/nexus_control/config/ps4-holonomic.yaml'
+                
             ],
+            ## Remap the output of teleop twist node to joystick_cmd_vel so that it can prioritized over nexus_twist_node
+            remappings=[
+                ('/cmd_vel', '/joystick_cmd_vel')
+            ]
         ),
 
         # Nexus Twist Node
@@ -32,6 +37,19 @@ def generate_launch_description():
             #],
             output='screen',
         ),
+        
+        # Twist Mux Node
+        Node(
+            package='twist_mux',
+            executable='twist_mux',
+            name='twist_mux',
+            parameters=['/home/mecroka/nexus_4wd_mecanum_ws/src/nexus_bringup/config/twist_mux.yaml'],
+            remappings=[
+                ('/cmd_vel_out', '/cmd_vel')  
+            ]
+        ),
+
+        
 
         # Nexus Serial Conn Node
         Node(

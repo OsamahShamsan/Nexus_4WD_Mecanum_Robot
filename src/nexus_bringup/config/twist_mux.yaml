@@ -1,0 +1,14 @@
+twist_mux:
+  ros__parameters:
+    use_stamped: false
+
+    topics:
+      joystick:
+        topic: /joystick_cmd_vel
+        timeout: 0.1
+        priority: 100
+
+      mecanum_autonomous:
+        topic: /mecanum4WD_cmd_vel
+        timeout: 1.0
+        priority: 10
