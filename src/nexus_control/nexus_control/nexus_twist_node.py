@@ -101,98 +101,120 @@
 # Omni4WD Omni(&wheel1_UL, &wheel2_LL, &wheel3_LR, &wheel4_UR);
 
 
-import rclpy
-from rclpy.node import Node
-from geometry_msgs.msg import Twist
-from std_msgs.msg import Int32MultiArray
+# Import required ROS 2 and message modules
+import rclpy  # Core ROS 2 Python library
+from rclpy.node import Node  # Base class for creating ROS 2 nodes
+from geometry_msgs.msg import Twist  # Message type for velocity commands (cmd_vel)
+from std_msgs.msg import Int32MultiArray  # Message type for publishing wheel velocities
 
+# Define a custom node class that translates Twist messages into wheel velocities
 class TwistNexusNode(Node):
     def __init__(self):
+        # Initialize the node with a unique name
         super().__init__('nexus_twist_node')
 
-        # Constants
-        self.WHEELSPAN = 300         
-        self.MAX_SPEEDRPM = 8000     
-        self.REDUCTION_RATIO = 64    
-        self.CIRMM = 314             
-        self.MAX_SPEED = 500.0
-        self.MIN_SPEED = -500.0
+        # Constants representing the physical characteristics of the robot
+        self.WHEELSPAN = 300          # Distance between wheels (in mm)
+        self.MAX_SPEEDRPM = 8000      # Max motor RPM (from datasheet)
+        self.REDUCTION_RATIO = 64     # Gear reduction ratio
+        self.CIRMM = 314              # Wheel circumference in mm
+        self.MAX_SPEED = 500.0        # Max safe speed (mm/s)
+        self.MIN_SPEED = -500.0       # Min safe speed (mm/s)
 
-        self.declare_parameter('linear_scale', self.MAX_SPEED) 
-        self.declare_parameter('angular_scale', 1.0)
-        self.declare_parameter('linear_ramp_step', 20.0)
-        self.declare_parameter('angular_ramp_step', 0.1)
+        # Declare configurable parameters with default values
+        self.declare_parameter('linear_scale', self.MAX_SPEED)     # Scale factor for linear velocity
+        self.declare_parameter('angular_scale', 1.0)               # Scale factor for angular velocity
+        self.declare_parameter('linear_ramp_step', 20.0)           # Max change per loop for linear vel
+        self.declare_parameter('angular_ramp_step', 0.1)           # Max change per loop for angular vel
 
+        # Get parameter values
         self.linear_scale = self.get_parameter('linear_scale').value
         self.angular_scale = self.get_parameter('angular_scale').value
         self.linear_ramp_step = self.get_parameter('linear_ramp_step').value
         self.angular_ramp_step = self.get_parameter('angular_ramp_step').value
 
+        # Publisher that sends motor commands (4 wheel speeds)
         self.publisher = self.create_publisher(Int32MultiArray, '/twist_nexus', 10)
-        #self.publisher = self.create_publisher(Int32MultiArray, '/encoder_wheels', 10)
 
-        self.subscription = self.create_subscription(Twist, '/cmd_vel', self.cmd_vel_callback, 10)
+        # Subscription to the cmd_vel topic to receive robot velocity commands
+        self.subscription = self.create_subscription(
+            Twist,
+            '/cmd_vel',
+            self.cmd_vel_callback,
+            10
+        )
 
-        self.timer = self.create_timer(0.01, self.loop)  # Main loop 50 Hz
+        # Timer for the control loop (called every 10ms → 100Hz)
+        self.timer = self.create_timer(0.01, self.loop)
 
-        self.target_vx = 0.0
-        self.target_vy = 0.0
-        self.target_omega = 0.0
+        # Target velocities from Twist messages
+        self.target_vx = 0.0  # Target linear velocity in x
+        self.target_vy = 0.0  # Target linear velocity in y
+        self.target_omega = 0.0  # Target angular velocity around z
 
+        # Current (ramped) velocities used to prevent abrupt changes
         self.vx = 0.0
         self.vy = 0.0
         self.w = 0.0
 
+    # Callback function triggered when a Twist message is received
     def cmd_vel_callback(self, msg):
+        # Scale received linear and angular velocities
         self.target_vx = msg.linear.x * self.linear_scale
         self.target_vy = msg.linear.y * self.linear_scale
         self.target_omega = msg.angular.z * self.angular_scale
 
-    # Function to not allow values below -1 and over 1
+    # Clamp a value to a given range
     def clamp(self, val, min_val, max_val):
         return max(min(val, max_val), min_val)
     
+    # Ramp the current value toward the target by at most 'step' units
     def ramp(self, current, target, step):
         diff = target - current
         if abs(diff) <= step:
             return target
-        return current + step * (diff / abs(diff))
+        return current + step * (diff / abs(diff))  # Increment in the direction of the target
 
+    # Main control loop called periodically by the timer
     def loop(self):
+        # Get the number of publishers on the /cmd_vel topic
         publishers = self.subscription.get_publisher_count()
+
+        # Create a message for publishing motor speeds
         msg = Int32MultiArray()
         
         if publishers == 0:
-            #self.get_logger().info(f"1 Number of publishers on {self.input_topic}: {publishers}")
+            # If no /cmd_vel input, gradually ramp to zero (safe stop)
             self.vx = self.ramp(self.vx, 0, self.linear_ramp_step)
             self.vy = self.ramp(self.vy, 0, self.linear_ramp_step)
             self.w  = self.ramp(self.w, 0, self.angular_ramp_step)
         else:
+            # Ramp toward the target velocities and clamp within safe limits
             self.vx = self.clamp(self.ramp(self.vx, self.target_vx, self.linear_ramp_step), -500, 500)
             self.vy = self.clamp(self.ramp(self.vy, self.target_vy, self.linear_ramp_step), -500, 500)
             self.w  = self.clamp(self.ramp(self.w, self.target_omega, self.angular_ramp_step), -1, 1)
 
-        r = self.WHEELSPAN
+        # Use wheel kinematics to calculate individual wheel speeds
+        r = self.WHEELSPAN  # distance factor (can be interpreted as (a + b) in kinematics)
 
-        # Since we are already getting vx and vy we dont need to multiply v*sin(rad) and v*cos(rad) because v*sin(rad) = vy and v*cos(rad) = vx
-        v1_UL = int( ( - self.vy + self.vx - (r * self.w)))
-        v2_LL = int( ( - self.vy - self.vx - (r * self.w)))
-        v3_LR = int( ( + self.vy + self.vx - (r * self.w)))
-        v4_UR = int( ( + self.vy - self.vx - (r * self.w)))
+        # Mecanum kinematic equations (adjusted to match wheel orientation)
+        v1_UL = int(-self.vy + self.vx - (r * self.w))  # Upper Left
+        v2_LL = int(-self.vy - self.vx - (r * self.w))  # Lower Left
+        v3_LR = int(+self.vy + self.vx - (r * self.w))  # Lower Right
+        v4_UR = int(+self.vy - self.vx - (r * self.w))  # Upper Right
         
+        # Pack wheel speeds into message and publish
         msg.data = [v1_UL, v2_LL, v3_LR, v4_UR]
-
         self.publisher.publish(msg)
-        #self.get_logger().info(f"2 Number of publishers on {self.input_topic}: {publishers}")
 
-        
-
+# Main function that initializes and runs the node
 def main(args=None):
-    rclpy.init(args=args)
-    node = TwistNexusNode()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+    rclpy.init(args=args)        # Initialize ROS 2 communication
+    node = TwistNexusNode()      # Create an instance of the node
+    rclpy.spin(node)             # Keep the node running
+    node.destroy_node()          # Cleanup when done
+    rclpy.shutdown()             # Shutdown ROS 2 client
 
+# Entry point if this file is run directly
 if __name__ == '__main__':
     main()

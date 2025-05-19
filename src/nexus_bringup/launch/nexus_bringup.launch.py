@@ -21,9 +21,9 @@ def generate_launch_description():
                 '/home/mecroka/nexus_4wd_mecanum_ws/src/nexus_control/config/ps4-holonomic.yaml'
                 
             ],
-            ## Remap the output of teleop twist node to joystick_cmd_vel so that it can prioritized over nexus_twist_node
+            ## Remap the output of teleop twist node to cmd_vel_joystick so that it can prioritized over nexus_twist_node
             remappings=[
-                ('/cmd_vel', '/joystick_cmd_vel')
+                ('/cmd_vel', '/cmd_vel_joystick')
             ]
         ),
 

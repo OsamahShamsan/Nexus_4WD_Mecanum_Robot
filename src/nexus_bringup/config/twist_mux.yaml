@@ -4,11 +4,11 @@ twist_mux:
 
     topics:
       joystick:
-        topic: /joystick_cmd_vel
+        topic: /cmd_vel_joystick  # Joystick outputs are redirected and published to this topic 
         timeout: 0.1
         priority: 100
 
-      mecanum_autonomous:
-        topic: /mecanum4WD_cmd_vel
+      mecanum_move:
+        topic: /cmd_vel_nexus   # Joystick outputs are redirected and published to this topic 
         timeout: 1.0
         priority: 10

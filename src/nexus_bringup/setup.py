@@ -20,9 +20,4 @@ setup(
     description='TODO: Package description',
     license='TODO: License declaration',
     tests_require=['pytest'],
-    entry_points={
-        'console_scripts': [
-            'nexus_bringup = nexus_bringup.nexus_bringup:main'
-        ],
-    },
 )

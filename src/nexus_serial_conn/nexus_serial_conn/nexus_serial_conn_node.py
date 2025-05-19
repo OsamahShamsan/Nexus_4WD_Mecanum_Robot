@@ -10,8 +10,14 @@ class NexusSerialConnNode(Node):
     def __init__(self):
         super().__init__('nexus_serial_conn_node')
 
+        self.declare_parameters('', [
+            ('serial_port', '/dev/ttyUSB0'), ('baud_rate', 115200)
+        ])
+        self.serial_port = self.get_parameter('serial_port').value     # Get the param vx and set it within the allowed range [-1,1] => to not allow input of extreme values
+        self.baud_rate   = self.get_parameter('baud_rate').value       # Get the param vy and set it within the allowed range [-1,1] => to not allow input of extreme values
+
         # Serial connection to Arduino
-        self.ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=1)
+        self.ser = serial.Serial(self.serial_port,  self.baud_rate, timeout=1)
 
         # Debug log topic
         self.serial_debug_pub = self.create_publisher(String, '/serial_debug', 10)
