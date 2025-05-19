@@ -18,7 +18,6 @@
   <depend>tty</depend>
   <depend>time</depend>
   <depend>signal</depend>
-  <depend>sys</depend>
 
   <exec_depend>pyserial</exec_depend>
   <exec_depend>std_msgs</exec_depend>

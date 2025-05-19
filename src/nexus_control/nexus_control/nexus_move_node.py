@@ -16,7 +16,7 @@ class NexusMoveNode(Node):
         # To access and modify the global variables within the class methods 
 
         # Parameters that can be passed by the user: 
-        # vx         = forward speed (+vx => forward), vy = sideway speed (+vy => sideway l), w = rotation around z-axis (+w => counter clockwise),
+        # vx         = forward speed (+vx => forward), vy = sideway speed (+vy => sideway left), w = rotation around z-axis (+w => counter clockwise),
         # t_straight = moving time in straight lines (forward, backward, sideways or diagonals), t_rotate = rotation time (see square_callback function)
         # M          = Mode of movement (l = line, s = square and r = rotation on place)
         self.declare_parameters('', [
@@ -117,17 +117,17 @@ class NexusMoveNode(Node):
                 self.start_time = time.time()
 
         elapsed = time.time() - self.start_time
-        self.get_logger().info(f"Elapsed: {elapsed:.2f} / {self.t_straight}, Step: {self.step} / 4")
+        self.get_logger().info(f"Elapsed: {elapsed:.2f} / {self.t_straight + self.t_rotate}, Step: {self.step} / 4")
         # After 4 sides, stop the robot
         if self.step >= 4:
            self.stop_and_exit()
            return
 
         # Move straight for t_straight seconds
-        if time.time() - self.start_time < self.t_straight: 
+        if elapsed < self.t_straight: 
             self.ramp_and_publish(self.vx, self.vy, 0.0)
         # Rotate for t_rotate seconds
-        elif time.time() - self.start_time < self.t_straight + self.t_rotate: 
+        elif elapsed < self.t_straight + self.t_rotate: 
             self.ramp_and_publish(0.0, 0.0, self.w)
         # After finishing both, increment step and reset timer
         else: 

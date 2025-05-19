@@ -33,7 +33,7 @@ def generate_launch_description():
             executable='nexus_twist_node',
             name='nexus_twist_node',
             #parameters=[
-            #    '/home/mecroka/nexus_4wd_mecanum_ws/src/nexus_bringup/config/params.yaml'
+            #    '/home/mecroka/nexus_4wd_mecanum_ws/src/nexus_control/config/nexus_4wd_mecanum_controllers.yaml'
             #],
             output='screen',
         ),
@@ -49,15 +49,13 @@ def generate_launch_description():
             ]
         ),
 
-        
-
         # Nexus Serial Conn Node
         Node(
             package='nexus_serial_conn',
             executable='nexus_serial_conn_node',
             name='nexus_serial_conn_node',
             #parameters=[
-            #    '/home/mecroka/nexus_4wd_mecanum_ws/src/nexus_bringup/config/params.yaml'
+            #    '/home/mecroka/nexus_4wd_mecanum_ws/src/nexus_serial_conn/config/serial_conn.yaml'
             #],
             output='screen',
         ),
@@ -68,7 +66,7 @@ def generate_launch_description():
             executable='nexus_odom_node',
             name='nexus_odom_node',
             #parameters=[
-            #    '/home/mecroka/nexus_4wd_mecanum_ws/src/nexus_bringup/config/params.yaml'
+            #    '/home/mecroka/nexus_4wd_mecanum_ws/src/nexus_odom/config/odom_params.yaml'
             #],
             output='screen',
         ),
