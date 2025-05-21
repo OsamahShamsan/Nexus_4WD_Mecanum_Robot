@@ -8,7 +8,7 @@ import signal
 import time
 import sys
 
-class NexusMoveNode(Node):
+class MoveWithPatternsNode(Node):
     def __init__(self):
         # Initialize the node with the name 'nexus_move_node'
         super().__init__('nexus_move_node')
@@ -154,7 +154,7 @@ class NexusMoveNode(Node):
 # Main entry point for the node
 def main(args=None):
     rclpy.init(args=args)           # Initialize ROS 2 Python client
-    node = NexusMoveNode()          # Create the node
+    node = MoveWithPatternsNode()          # Create the node
 
     # Custom SIGINT handler (to able sending 0,0,0 to cmd_vel topic)
     # This function will be called when the node receives a SIGINT signal (e.g., when Ctrl+C is entered in terminal)
