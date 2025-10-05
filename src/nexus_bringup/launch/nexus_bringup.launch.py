@@ -69,7 +69,7 @@ def generate_launch_description():
             package='nexus_serial_conn',
             executable='nexus_serial_conn_node',
             name='nexus_serial_conn_node',
-            parameters=[serial_conn_file],
+            #parameters=[serial_conn_file],
             output='screen',
         ),
 

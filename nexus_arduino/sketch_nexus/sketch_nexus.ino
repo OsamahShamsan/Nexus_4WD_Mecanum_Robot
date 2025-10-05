@@ -349,55 +349,7 @@ void loop() {
 }
 */
 
-/*
-void setup() {
 
-  Serial.begin(BAUD_RATE); // Must match the settings in the ROS 2 Python node
-
-  TCCR1B = TCCR1B & 0xf8 | 0x01;  // Pin9,Pin10 PWM 31250Hz
-  TCCR2B = TCCR2B & 0xf8 | 0x01;  // Pin3,Pin11 PWM 31250Hz
-
-  Omni.PIDEnable(0.27, 0.01, 0, 10);
-  //Omni.PIDDisable();             // Turn off PID
-  //Omni.setMotorAllStop();        // Stop all motors
-  Omni.PIDRegulate();            // Ensure update
-
-}
-int i = 0;
-bool increasing = true;
-// wheel1_UL(3, 2, 4, 5, &irq1);        
-// wheel2_LL(11, 12, 14, 15, &irq2);    
-// wheel3_LR(9, 8, 16, 17, &irq3);    
-// wheel4_UR(10, 7, 18, 19, &irq4);   
-void loop() {
-  Omni.wheelULSetSpeedMMPS(200);
-  Omni.wheelLLSetSpeedMMPS(200);
-  Omni.wheelLRSetSpeedMMPS(200, DIR_BACKOFF);      // in the opposite direction
-  Omni.wheelURSetSpeedMMPS(200);      // in the opposite direction
-  //Omni.setCarMove(200);
-  Omni.PIDRegulate();
-
-  //if (increasing) {
-  //  i++;
-  //  if (i >= 500)  {
-  //      increasing = false; 
-  //      delay(5000); // Wait for 5 second before decreasing
-  //    }
-  //} else {
-  //  i--;
-  //  if (i <= -500) {
-  //    increasing = true;
-  //    delay(5000); // Wait for 5 second before increasing
-  //    }
-  //}
-  //Serial.println(i);
-  //wheel1_UL.debugger();
-  //wheel2_LL.debugger();
-  //wheel3_LR.debugger();
-  //wheel4_UR.debugger();
-  //delay(100);
-}
-*/
 
 /*
 
