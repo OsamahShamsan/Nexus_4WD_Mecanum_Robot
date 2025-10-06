@@ -65,13 +65,13 @@ def generate_launch_description():
         ),
 
         # Serial Connection Node
-        Node(
-            package='nexus_serial_conn',
-            executable='nexus_serial_conn_node',
-            name='nexus_serial_conn_node',
+        #Node(
+         #   package='nexus_serial_conn',
+         #   executable='nexus_serial_conn_node',
+          #  name='nexus_serial_conn_node',
             #parameters=[serial_conn_file],
-            output='screen',
-        ),
+         #   output='screen',
+        #),
 
         # Odometry Node
         Node(
@@ -83,12 +83,12 @@ def generate_launch_description():
         ),
 
         # Nav2 bringup (via IncludeLaunchDescription)
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(nav2_launch_file),
-            launch_arguments={
-                'use_sim_time': 'false',
-                'map': map_file,
-                'params_file': nav2_params_file
-            }.items()
-        )
+        #IncludeLaunchDescription(
+        #    PythonLaunchDescriptionSource(nav2_launch_file),
+        #    launch_arguments={
+        #        'use_sim_time': 'false',
+        #        'map': map_file,
+        #        'params_file': nav2_params_file
+        #    }.items()
+        #)
     ])
