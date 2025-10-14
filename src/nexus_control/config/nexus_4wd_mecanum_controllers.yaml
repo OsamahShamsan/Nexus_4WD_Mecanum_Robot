@@ -1,7 +1,25 @@
 nexus_twist_node:
   ros__parameters:
-    linear_scale: 500.0
-    angular_scale: 1.0
-    linear_ramp_step: 4.0     # steps to ramp up vx or vy to the target speed
-    angular_ramp_step: 0.08   # steps to ramp up w to the target speed
 
+    # ----------------------------------------------------------
+    # --- Input Topic Selection
+    # ----------------------------------------------------------
+    input_topic: "/cmd_vel_joystick"       # or "/cmd_vel" for Nav2
+
+    # ----------------------------------------------------------
+    # --- Units (0 = m/s, 1 = mm/s)
+    # ----------------------------------------------------------
+    use_millimetre: 0                      # 0 = SI units (recommended)
+
+    # ----------------------------------------------------------
+    # --- Scaling
+    # ----------------------------------------------------------
+    linear_scale_mps: 0.66                 # maps joystick [-1,1] → [-0.66,0.66] m/s
+    angular_scale_radps: 2.2               # maps joystick [-1,1] → [-2.2,2.2] rad/s
+
+    # ----------------------------------------------------------
+    # --- Motion Smoothing / Watchdog
+    # ----------------------------------------------------------
+    watchdog_timeout_s: 0.30               # stop if no /cmd_vel in 0.3 s
+    v_step_mps: 0.01                       # linear velocity step [m/s] per control cycle
+    wz_step_radps: 0.10                    # angular velocity step [rad/s] per control cycle

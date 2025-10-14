@@ -1,3 +1,0 @@
-nexus_odom_node:
-  ros__parameters:
-    wheelspan: 300.0

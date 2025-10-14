@@ -8,5 +8,8 @@
       "/home/mecroka/nexus_ws/build",
       "/home/mecroka/nexus_ws/install",
       "/opt/ros/jazzy/lib/python3.12/site-packages"
-    ]
-  }
+    ],
+     "urdf-visualizer.packages": {
+     "nexus_description": "/home/mecroka/nexus_ws/src/nexus_description"
+   }
+}

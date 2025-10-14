@@ -1,0 +1,31 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/mecroka/nexus_4wd_mecanum_ws/build/nexus_serial_conn",
+        "/home/mecroka/nexus_4wd_mecanum_ws/install/nexus_serial_conn/lib/python3.12/site-packages",
+        "/home/mecroka/nexus_4wd_mecanum_ws/build/nexus_odom",
+        "/home/mecroka/nexus_4wd_mecanum_ws/install/nexus_odom/lib/python3.12/site-packages",
+        "/home/mecroka/nexus_4wd_mecanum_ws/build/nexus_description",
+        "/home/mecroka/nexus_4wd_mecanum_ws/install/nexus_description/lib/python3.12/site-packages",
+        "/home/mecroka/nexus_4wd_mecanum_ws/build/nexus_control",
+        "/home/mecroka/nexus_4wd_mecanum_ws/install/nexus_control/lib/python3.12/site-packages",
+        "/home/mecroka/nexus_4wd_mecanum_ws/build/nexus_bringup",
+        "/home/mecroka/nexus_4wd_mecanum_ws/install/nexus_bringup/lib/python3.12/site-packages",
+        "/home/mecroka/nexus_4wd_mecanum_ws/install/micro_ros_msgs/lib/python3.12/site-packages",
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/mecroka/nexus_4wd_mecanum_ws/build/nexus_serial_conn",
+        "/home/mecroka/nexus_4wd_mecanum_ws/install/nexus_serial_conn/lib/python3.12/site-packages",
+        "/home/mecroka/nexus_4wd_mecanum_ws/build/nexus_odom",
+        "/home/mecroka/nexus_4wd_mecanum_ws/install/nexus_odom/lib/python3.12/site-packages",
+        "/home/mecroka/nexus_4wd_mecanum_ws/build/nexus_description",
+        "/home/mecroka/nexus_4wd_mecanum_ws/install/nexus_description/lib/python3.12/site-packages",
+        "/home/mecroka/nexus_4wd_mecanum_ws/build/nexus_control",
+        "/home/mecroka/nexus_4wd_mecanum_ws/install/nexus_control/lib/python3.12/site-packages",
+        "/home/mecroka/nexus_4wd_mecanum_ws/build/nexus_bringup",
+        "/home/mecroka/nexus_4wd_mecanum_ws/install/nexus_bringup/lib/python3.12/site-packages",
+        "/home/mecroka/nexus_4wd_mecanum_ws/install/micro_ros_msgs/lib/python3.12/site-packages",
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ],
+    "github.copilot.chat.codeGeneration.useInstructionFiles": true
+}

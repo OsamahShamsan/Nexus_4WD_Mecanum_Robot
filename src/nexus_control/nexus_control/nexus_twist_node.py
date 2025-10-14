@@ -100,7 +100,6 @@
 # Using the class Omni4WD(MotorWheel* wheelUL,MotorWheel* wheelLL, MotorWheel* wheelLR,MotorWheel* wheelUR,unsigned int wheelspan=WHEELSPAN);
 # Omni4WD Omni(&wheel1_UL, &wheel2_LL, &wheel3_LR, &wheel4_UR);
 
-
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
@@ -112,36 +111,71 @@ class TwistNexusNode(Node):
     def __init__(self):
         super().__init__('nexus_twist_node')
 
-        # Params
+        # ----------------------------------------------------------
+        # Parameters
+        # ----------------------------------------------------------
         self.declare_parameter('input_topic', '/cmd_vel_joystick')   # or '/cmd_vel'
-        self.declare_parameter('linear_scale_mmps', 660.0)           # maps [-1,1] -> [-570,570] mm/s
-        self.declare_parameter('angular_scale_radps', 2.2)           # maps [-1,1] -> [-1.9,1.9] rad/s
-        self.declare_parameter('watchdog_timeout_s', 0.30)           # stop if no cmd for this long
-        self.declare_parameter('v_step_mmps', 10.0)                  # send to MCU
-        self.declare_parameter('wz_step_radps', 0.10)                # send to MCU
 
+        # Unit system (0 = m/s, 1 = mm/s)
+        self.declare_parameter('use_millimetre', 0)
+
+        # Base scaling (for m/s and rad/s)
+        self.declare_parameter('linear_scale_mps', 0.66)             # maps [-1,1] → [-0.66,0.66] m/s
+        self.declare_parameter('angular_scale_radps', 2.2)           # maps [-1,1] → [-2.2,2.2] rad/s
+
+        # Control loop behavior
+        self.declare_parameter('watchdog_timeout_s', 0.30)           # stop if no cmd for this long
+        self.declare_parameter('v_step_mps', 0.01)                   # velocity ramp step [m/s]
+        self.declare_parameter('wz_step_radps', 0.10)                # angular ramp step [rad/s]
+
+        # ----------------------------------------------------------
+        # Read parameters
+        # ----------------------------------------------------------
         self.input_topic = self.get_parameter('input_topic').value
-        self.lin_scale = float(self.get_parameter('linear_scale_mmps').value)
+        self.use_mm = int(self.get_parameter('use_millimetre').value)
+        self.lin_scale = float(self.get_parameter('linear_scale_mps').value)
         self.ang_scale = float(self.get_parameter('angular_scale_radps').value)
         self.timeout_s = float(self.get_parameter('watchdog_timeout_s').value)
-        self.v_step = float(self.get_parameter('v_step_mmps').value)
+        self.v_step = float(self.get_parameter('v_step_mps').value)
         self.wz_step = float(self.get_parameter('wz_step_radps').value)
 
-        # Pub/Sub
+        # ----------------------------------------------------------
+        # Unit conversion (automatic scaling)
+        # ----------------------------------------------------------
+        if self.use_mm:
+            self.get_logger().info("Using millimetre units [mm/s]")
+            self.lin_scale *= 1000.0
+            self.v_step *= 1000.0
+        else:
+            self.get_logger().info("Using metre units [m/s]")
+
+        # ----------------------------------------------------------
+        # Publishers & Subscribers
+        # ----------------------------------------------------------
         self.pub_cmd = self.create_publisher(Float32MultiArray, '/twist_nexus', 10)
         self.pub_cfg = self.create_publisher(Float32MultiArray, '/nexus_ctrl/config', 1)
         self.sub = self.create_subscription(Twist, self.input_topic, self.on_twist, 10)
 
+        # ----------------------------------------------------------
         # Timers
+        # ----------------------------------------------------------
         self.create_timer(0.01, self.tick_100hz)  # publish at 100 Hz
         self.create_timer(1.0, self.send_config)  # resend config each second
 
+        # ----------------------------------------------------------
         # State
+        # ----------------------------------------------------------
         self.last_twist_time = 0.0
-        self.last_cmd = [0.0, 0.0, 0.0]  # [vx, vy, wz], in mm/s and rad/s
+        self.last_cmd = [0.0, 0.0, 0.0]  # [vx, vy, wz] in m/s or mm/s, depending on mode
 
+        self.get_logger().info(f"Listening to: {self.input_topic}")
+        self.get_logger().info(f"Linear scale: {self.lin_scale:.3f}, Angular scale: {self.ang_scale:.3f}")
+
+    # ----------------------------------------------------------
+    # Callbacks
+    # ----------------------------------------------------------
     def on_twist(self, msg: Twist):
-        # Scale input (no ramp, no clamp; joystick is already in [-1,1])
+        # Scale joystick inputs to physical velocities
         vx = float(msg.linear.x)  * self.lin_scale
         vy = float(msg.linear.y)  * self.lin_scale
         wz = float(msg.angular.z) * self.ang_scale
@@ -149,12 +183,13 @@ class TwistNexusNode(Node):
         self.last_twist_time = time.monotonic()
 
     def send_config(self):
+        # Send ramp step sizes to MCU
         m = Float32MultiArray()
         m.data = [float(self.v_step), float(self.wz_step)]
         self.pub_cfg.publish(m)
 
     def tick_100hz(self):
-        # Safety: stop if no publishers or no recent msg
+        # Safety: stop if timeout or no active input
         have_input = self.subscription_publisher_count() > 0
         timed_out = (time.monotonic() - self.last_twist_time) > self.timeout_s
 
@@ -168,17 +203,17 @@ class TwistNexusNode(Node):
         self.pub_cmd.publish(m)
 
     def subscription_publisher_count(self) -> int:
-        # rclpy API doesn’t expose pub count directly on the subscription object,
-        # but the underlying method exists:
         try:
             return self.sub.get_publisher_count()
         except Exception:
-            return 1  # be permissive if the method is missing
+            return 1  # fallback if method not supported
+
 
 def main():
     rclpy.init()
     rclpy.spin(TwistNexusNode())
     rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()
