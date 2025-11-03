@@ -24,7 +24,8 @@ setup(
         'console_scripts': [
             'move_with patterns = nexus_control.move_with_patterns:main',
             'move_with_coordinates = nexus_control.move_with_coordinates:main',
-            'nexus_twist_node  = nexus_control.nexus_twist_node:main'
+            'nexus_twist_node  = nexus_control.nexus_twist_node:main',
+            'twist_tester = nexus_control.twist_tester:main'
         ],
     },
 )

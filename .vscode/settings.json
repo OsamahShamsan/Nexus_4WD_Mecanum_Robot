@@ -27,5 +27,6 @@
         "/home/mecroka/nexus_4wd_mecanum_ws/install/micro_ros_msgs/lib/python3.12/site-packages",
         "/opt/ros/jazzy/lib/python3.12/site-packages"
     ],
-    "github.copilot.chat.codeGeneration.useInstructionFiles": true
+    "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+    "cmake.sourceDirectory": "/home/mecroka/nexus_4wd_mecanum_ws/src/nexus_description"
 }
