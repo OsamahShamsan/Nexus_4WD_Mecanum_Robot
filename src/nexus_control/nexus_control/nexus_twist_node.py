@@ -128,7 +128,7 @@ class TwistNexusNode(Node):
         self.input_topic = self.get_parameter('input_topic').value
         self.use_mm      = self.get_parameter('use_millimetre').value
         self.lin_scale   = self.get_parameter('linear_scale_mps').value
-        self.lin_scale   = 100.0  
+        self.lin_scale   = 0.5  
 
         self.ang_scale   = self.get_parameter('angular_scale_radps').value
         self.timeout_s   = self.get_parameter('watchdog_timeout_s').value
@@ -148,7 +148,7 @@ class TwistNexusNode(Node):
         # ----------------------------------------------------------
         # Publishers & Subscribers
         # ----------------------------------------------------------
-        self.pub_cmd = self.create_publisher(Twist, '/twist_nexus', 10)
+        self.pub_cmd = self.create_publisher(Twist, '/cmd_vel', 10)
         self.sub = self.create_subscription(Twist, self.input_topic, self.on_twist, 10)
 
         # ----------------------------------------------------------
