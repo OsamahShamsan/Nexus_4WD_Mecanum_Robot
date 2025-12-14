@@ -1,0 +1,41 @@
+slam_toolbox:
+  ros__parameters:
+    # Time configuration
+    use_sim_time: false
+
+    # SLAM mode: mapping (for creating new maps)
+    mode: mapping
+    publish_tf: true
+
+    # Frame configuration
+    # Note: odom_frame should match the frame_id from STM32 odometry publisher
+    map_frame: map
+    odom_frame: odom
+    base_frame: base_link
+
+    # Scan topic (from LiDAR)
+    scan_topic: /scan
+    transform_publish_period: 0.02
+
+    # Motion thresholds (lower = more frequent map updates)
+    minimum_travel_distance: 0.05
+    minimum_travel_heading: 0.05
+
+    # Map resolution (meters per pixel)
+    resolution: 0.05
+    max_laser_range: 25.0
+
+    # Map update interval (seconds)
+    map_update_interval: 2.0
+
+    # External odometry configuration
+    # SLAM will use /odom topic from STM32 node
+    # Make sure STM32 node publishes nav_msgs/Odometry with:
+    #   - header.frame_id = "odom"
+    #   - child_frame_id = "base_link"
+    scan_queue_size: 10
+    link_match_minimum_response_fine: 0.1
+    link_scan_maximum_distance: 1.5
+    loop_search_maximum_distance: 3.0
+    distance_variance_penalty: 0.5
+    angle_variance_penalty: 1.0
